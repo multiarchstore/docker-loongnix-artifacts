@@ -47,9 +47,9 @@ jobs:
           mv validate/* validate/loongnix
           mv validate/loongnix/loong64 validate/loongnix/archive
           echo "${serial}" > validate/loongnix/archive/serial
-          cp -f validate/loongnix/archive/unstable/rootfs.dpkg-arch validate/loongnix/archive/dpkg-arch
-          cp -f validate/loongnix/archive/unstable/rootfs.debuerreotype-version validate/loongnix/archive/debuerreotype-version
-          cp -f validate/loongnix/archive/unstable/rootfs.debuerreotype-epoch validate/loongnix/archive/debuerreotype-epoch
+          cp -f validate/loongnix/archive/loongnix-stable/rootfs.dpkg-arch validate/loongnix/archive/dpkg-arch
+          cp -f validate/loongnix/archive/loongnix-stable/rootfs.debuerreotype-version validate/loongnix/archive/debuerreotype-version
+          cp -f validate/loongnix/archive/loongnix-stable/rootfs.debuerreotype-epoch validate/loongnix/archive/debuerreotype-epoch
           # OCI: https://github.com/docker-library/oi-janky-groovy/blob/master/tianon/debuerreotype/arch-pipeline.groovy
           shopt -s globstar
           for rootfs in validate/loongnix/archive/**/rootfs.tar.xz; do
