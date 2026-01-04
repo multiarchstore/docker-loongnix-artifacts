@@ -92,9 +92,9 @@ jobs:
           platforms: linux/loong64
           push: true
           tags: |
-            ghcr.io/${{ env.REPO_OWNER }}/loongnix:25
-            ghcr.io/${{ env.REPO_OWNER }}/loongnix:25-${{ env.serial }}
-            ghcr.io/${{ env.REPO_OWNER }}/loongnix:latest
+            ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:25
+            ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:25-${{ env.serial }}
+            ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:latest
           outputs: type=image,oci-mediatypes=true,compression=zstd,compression-level=3,force-compression=true
           cache-from: type=gha
           cache-to: type=gha,mode=max
@@ -107,8 +107,8 @@ jobs:
           platforms: linux/loong64
           push: true
           tags: |
-            ghcr.io/${{ env.REPO_OWNER }}/loongnix:25-slim
-            ghcr.io/${{ env.REPO_OWNER }}/loongnix:25-slim-${{ env.serial }}
+            ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:25-slim
+            ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:25-slim-${{ env.serial }}
           outputs: type=image,oci-mediatypes=true,compression=zstd,compression-level=3,force-compression=true
           cache-from: type=gha
           cache-to: type=gha,mode=max
