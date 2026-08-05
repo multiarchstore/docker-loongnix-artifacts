@@ -19,8 +19,8 @@ jobs:
           sudo chmod +x /usr/local/bin/crane
           sudo chown root:root /usr/local/bin/crane
 
-      - uses: docker/setup-qemu-action@v3
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-qemu-action@v4
+      - uses: docker/setup-buildx-action@v4
 
       - name: Setup Git
         run: |
@@ -28,14 +28,14 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
       - name: Checkout code for debuerreotype
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: multiarchstore/debuerreotype
           ref: master
           path: debuerreotype
 
       - name: Checkout code for docker-loongnix-artifacts
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: multiarchstore/docker-loongnix-artifacts
           path: docker-loongnix-artifacts
@@ -79,19 +79,21 @@ jobs:
           git push origin dist-loong64 -f
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: la64-bot
           password: ${{ secrets.GH_TOKEN }}
 
       - name: Build and Push loongnix-stable Images
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./docker-loongnix-artifacts/loongnix-stable
           platforms: linux/loong64
           push: true
           tags: |
+            ghcr.io/${{ env.REPO_OWNER }}/loongnix:25
+            ghcr.io/${{ env.REPO_OWNER }}/loongnix:25-${{ env.serial }}
             ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:25
             ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:25-${{ env.serial }}
             ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:latest
@@ -101,12 +103,14 @@ jobs:
 
  
       - name: Build and Push loongnix-stable slim Images
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./docker-loongnix-artifacts/loongnix-stable/slim
           platforms: linux/loong64
           push: true
           tags: |
+            ghcr.io/${{ env.REPO_OWNER }}/loongnix:25-slim
+            ghcr.io/${{ env.REPO_OWNER }}/loongnix:25-slim-${{ env.serial }}
             ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:25-slim
             ghcr.io/${{ env.REPO_OWNER }}/loongnix-deb:25-slim-${{ env.serial }}
           outputs: type=image,oci-mediatypes=true,compression=zstd,compression-level=3,force-compression=true
